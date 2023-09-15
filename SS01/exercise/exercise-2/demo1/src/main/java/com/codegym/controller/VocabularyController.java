@@ -1,6 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.service.IService;
+import com.codegym.service.IVocabularyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,24 +10,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Map;
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class VocabularyController {
     @Autowired
-    private IService service;
+    private IVocabularyService vocabularyService;
 
     @GetMapping("")
     public String showForm(Model model) {
-        Map<String, String> vocabulary = this.service.showList();
+        Map<String, String> vocabulary = this.vocabularyService.showList();
         model.addAttribute("vocabulary", vocabulary);
-        return "form";
+        return "index";
     }
 
     @PostMapping("")
     public String translate(@RequestParam String keyWord, Model model) {
-        Map<String, String> vocabulary = this.service.showList();
-        String result = this.service.search(keyWord);
+        Map<String, String> vocabulary = this.vocabularyService.showList();
+        String result = this.vocabularyService.search(keyWord);
         model.addAttribute("result", result);
         model.addAttribute("keyWord", keyWord);
         model.addAttribute("vocabulary", vocabulary);
-        return "form";
+        return "index";
     }
 }

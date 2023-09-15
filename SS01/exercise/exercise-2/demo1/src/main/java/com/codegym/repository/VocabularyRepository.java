@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @org.springframework.stereotype.Repository
-public class Repository implements IRepository{
+public class VocabularyRepository implements IVocabularyRepository {
     private static Map<String, String> vocabulary = new HashMap<>();
+
     static {
         vocabulary.put("apple", "Táo");
         vocabulary.put("orange", "Cam");
@@ -14,6 +15,7 @@ public class Repository implements IRepository{
         vocabulary.put("banana", "Chuối");
         vocabulary.put("watermelon", "Dưa hấu");
     }
+
     @Override
     public Map<String, String> showList() {
         return vocabulary;
@@ -21,10 +23,7 @@ public class Repository implements IRepository{
 
     @Override
     public String search(String keyWord) {
-        String result = "Cant find this word";
-        if (vocabulary.containsKey(keyWord)) {
-            result = vocabulary.get(keyWord);
-        }
-       return result;
+        String notice = vocabulary.get(keyWord);
+        return notice;
     }
 }

@@ -12,6 +12,7 @@
     <title>Title</title>
 </head>
 <body>
+<h1>Vocabulary</h1>
 <table>
     <table>
         <c:forEach var="v" items="${vocabulary}">
