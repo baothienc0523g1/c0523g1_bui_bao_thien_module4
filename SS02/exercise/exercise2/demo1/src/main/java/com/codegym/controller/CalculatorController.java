@@ -1,15 +1,14 @@
 package com.codegym.controller;
 
-import com.codegym.service.ICalculator;
+import com.codegym.service.ICalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class CalculatorController {
     @Autowired
-    private ICalculator calculator;
+    private ICalculatorService calculator;
 
     @GetMapping("")
     public String showForm() {
@@ -36,7 +35,7 @@ public class Controller {
             case 4:
                 switch ((int) secondOperator) {
                     case 0:
-                        notice = "Cant divide to zero bro";
+                        notice = "Can't divide to zero!";
                         break;
                     default:
                         result = this.calculator.divideResolver(firstOperator, secondOperator);

@@ -1,6 +1,6 @@
 package com.codegym.controller;
 
-import com.codegym.service.IService;
+import com.codegym.service.ICondimentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class CondimentController {
     @Autowired
-    private IService service;
+    private ICondimentService service;
     @GetMapping("")
     public String showForm() {
         return "index";

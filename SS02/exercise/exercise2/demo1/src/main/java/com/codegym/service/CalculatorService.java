@@ -3,7 +3,7 @@ package com.codegym.service;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Calculator implements ICalculator {
+public class CalculatorService implements ICalculatorService {
     @Override
     public long minusResolver(long firstOperator, long secondOperator) {
         return firstOperator - secondOperator;

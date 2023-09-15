@@ -1,11 +1,10 @@
 package com.codegym.service;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 @org.springframework.stereotype.Service
-public class Service implements IService {
+public class CondimentService implements ICondimentService {
 
     private static List<String> list = new ArrayList<>();
     @Override
