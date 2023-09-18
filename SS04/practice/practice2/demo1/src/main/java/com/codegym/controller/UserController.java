@@ -18,7 +18,7 @@ public class UserController {
         return modelAndView;
     }
     @PostMapping("/login")
-    public ModelAndView login(@ModelAttribute("login") Login login) {
+    public ModelAndView login(@ModelAttribute Login login) {
         User user = UserDAO.checkLogin(login);
         ModelAndView modelAndView;
         if (user == null) {
