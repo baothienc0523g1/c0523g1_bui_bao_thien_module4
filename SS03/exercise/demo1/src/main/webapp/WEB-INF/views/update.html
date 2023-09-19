@@ -10,8 +10,31 @@
     h2 {
         text-align: center;
     }
+
+    a {
+        text-decoration: none;
+    }
+    header {
+        background-color: #272882;
+        height: 76px;
+        width: 100%;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+    }
+    footer {
+        position: absolute;
+        bottom: 0px;
+        text-align: center;
+        font-size: 1.6rem;
+        height: 76px;
+        width: 100%;
+    }
 </style>
+
 <body>
+<header th:replace="layout::header"></header>
+
 <h2>Product update</h2>
 <div class="container">
     <table class="table table-light table-striped-columns">
@@ -64,5 +87,7 @@
         </tr>
     </table>
 </div>
+<footer th:replace="layout::footer"></footer>
+
 </body>
 </html>
