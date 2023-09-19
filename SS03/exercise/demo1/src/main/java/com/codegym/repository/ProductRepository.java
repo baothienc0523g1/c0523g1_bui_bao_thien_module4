@@ -7,10 +7,9 @@ import java.util.*;
 
 @Repository
 public class ProductRepository implements IProductRepository {
-    private static List<Product> products = new LinkedList<>();
-    private static int id;
+    private List<Product> products = new LinkedList<>();
 
-    static {
+    {
         products.add(new Product(1, "iPhone 6", 5000.0, "Cellphone", "Apple"));
         products.add(new Product(2, "Samsung Galaxy S21", 7000.0, "Cellphone", "Samsung"));
         products.add(new Product(3, "iPad Pro", 8000.0, "Tablet", "Apple"));

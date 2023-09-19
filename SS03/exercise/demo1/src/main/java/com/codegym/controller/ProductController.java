@@ -17,9 +17,10 @@ public class ProductController {
     @GetMapping("")
     public String index(Model model) {
         List<Product> products = this.service.findAll();
-        model.addAttribute("products",products);
+        model.addAttribute("products", products);
         return "index";
     }
+
     @GetMapping("show-update/{id}")
     public String showUpdateForm(Model model, @PathVariable int id,
                                  @ModelAttribute Product product) {
@@ -29,37 +30,44 @@ public class ProductController {
         model.addAttribute("product", product);
         return "update";
     }
+
     @PostMapping("update")
     public String update(@RequestParam int id,
                          @ModelAttribute Product product) {
         this.service.update(id, product);
         return "redirect:/";
     }
+
     @GetMapping("delete/{id}")
     public String delete(@PathVariable int id) {
         this.service.delete(id);
         return "redirect:/";
     }
+
     @GetMapping("add")
     public String showAddForm(Model model) {
         model.addAttribute("product", new Product());
         return "add";
     }
+
     @GetMapping("back")
     public String back() {
         return "redirect:/";
     }
+
     @PostMapping("save")
     public String save(@ModelAttribute Product product) {
         this.service.create(product);
         return "redirect:/";
     }
+
     @GetMapping("search")
     public String search(@RequestParam String name, Model model) {
         List<Product> products = this.service.findByName(name);
-        model.addAttribute("products",products);
+        model.addAttribute("products", products);
         return "search-result";
     }
+
     @GetMapping("detail/{id}")
     public String detail(@PathVariable int id, Model model) {
         Product product = this.service.findById(id);
