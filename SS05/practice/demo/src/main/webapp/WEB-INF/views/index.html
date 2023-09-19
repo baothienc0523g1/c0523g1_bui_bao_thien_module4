@@ -12,9 +12,35 @@
   </a>
 </p>
 <div class="notify">
-  <div th:if="${message}">
-    <span th:text="${message}"></span>
+  <div th:if="${success}">
+      <span th:text="${success}"></span>
   </div>
 </div>
+<table id="customers">
+    <thead>
+    <tr>
+        <th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c, loop : ${customers}">
+        <td th:text="${loop.count}"></td>
+        <td th:text="${c.getName()()}"></td>
+        <td th:text="${c.getEmail()()}"></td>
+        <td th:text="${c.getAddress()()()}"></td>
+        <td><a th:href="@{/customers/{id}/edit(id=${c.getId()})}">Edit</a></td>
+        <td><a th:href="@{/customers/{id}/delete(id=${c.getId()})}">Delete</a></td>
+        <td><a th:href="@{/customers/{id}/view(id=${c.getId()})}">View</a></td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="/layout :: footer"></footer>
 </body>
 </html>
