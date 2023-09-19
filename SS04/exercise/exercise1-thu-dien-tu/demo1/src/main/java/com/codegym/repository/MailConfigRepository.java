@@ -8,11 +8,11 @@ import java.util.List;
 
 @Repository
 public class MailConfigRepository implements IMailConfigRepository {
-    private static MailConfig mailConfigs = new MailConfig();
-    private static List<String> languages;
-    private static List<Integer> sizes;
+    private MailConfig mailConfigs = new MailConfig();
+    private List<String> languages;
+    private List<Integer> sizes;
 
-    static {
+     {
         //language
         languages = new ArrayList<>();
         languages.add("English");
