@@ -13,26 +13,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class MailConfigController {
     @Autowired
-    private IMailConfigService service;
+    private IMailConfigService mailConfigService;
     @GetMapping("")
     public String showForm(Model model) {
         model.addAttribute("mailConfig", new MailConfig());
-        model.addAttribute("language", this.service.showLanguagesOption());
-        model.addAttribute("sizes", this.service.showSizeOption());
+        model.addAttribute("language", this.mailConfigService.showLanguagesOption());
+        model.addAttribute("sizes", this.mailConfigService.showSizeOption());
         return "index";
     }
 
     @PostMapping("save")
     public String save(@ModelAttribute MailConfig mailConfig,
                        RedirectAttributes redirectAttributes) {
-        this.service.saveConfig(mailConfig);
+        this.mailConfigService.saveConfig(mailConfig);
         redirectAttributes.addFlashAttribute("message","Added successfully");
         return "redirect:/";
     }
 
     @GetMapping("show-config")
     public String showConfig(Model model) {
-        MailConfig mailConfigs = this.service.showConfig();
+        MailConfig mailConfigs = this.mailConfigService.showConfig();
         model.addAttribute("mailConfigs", mailConfigs);
         return "show";
     }

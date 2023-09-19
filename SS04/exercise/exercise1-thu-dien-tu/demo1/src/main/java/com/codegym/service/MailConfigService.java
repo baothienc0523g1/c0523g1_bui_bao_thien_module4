@@ -10,24 +10,24 @@ import java.util.List;
 @Service
 public class MailConfigService implements IMailConfigService{
     @Autowired
-    private IMailConfigRepository repository;
+    private IMailConfigRepository mailConfigRepository;
     @Override
     public MailConfig showConfig() {
-        return this.repository.showConfig();
+        return this.mailConfigRepository.showConfig();
     }
 
     @Override
     public void saveConfig(MailConfig mailConfig) {
-        this.repository.saveConfig(mailConfig);
+        this.mailConfigRepository.saveConfig(mailConfig);
     }
 
     @Override
     public List<String> showLanguagesOption() {
-        return this.repository.showLanguagesOption();
+        return this.mailConfigRepository.showLanguagesOption();
     }
 
     @Override
     public List<Integer> showSizeOption() {
-        return this.repository.showSizeOption();
+        return this.mailConfigRepository.showSizeOption();
     }
 }
