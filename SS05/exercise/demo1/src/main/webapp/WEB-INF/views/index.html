@@ -11,6 +11,8 @@
 <header th:replace="layout::header"></header>
 <h2 class="mt-2 mb-2">Product management</h2>
 <div class="container">
+    <span th:text="${remove}"></span>
+    <span th:text="${notFound}"></span>
     <form th:action="@{search}" method="post">
         <div class="input-group mb-3 mt-3">
             <input name="name" type="text" class="form-control" placeholder="Search a product with name"
@@ -66,11 +68,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 <script>
-    // function getInfo(id, name) {
-    //     document.getElementById().value = id;
-    //     document.getElementById().innerText = name;
-    //
-    // }
+
 </script>
 </body>
 </html>

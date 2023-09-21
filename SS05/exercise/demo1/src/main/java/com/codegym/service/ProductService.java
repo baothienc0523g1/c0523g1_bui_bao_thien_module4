@@ -23,18 +23,19 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public void removeProduct(int id) {
-        this.productRepository.removeProduct(id);
+    public boolean removeProduct(int id) {
+        Product product = this.productRepository.findById(id);
+        if (product != null) {
+            this.productRepository.removeProduct(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public void adjustProduct(int id, Product product) {
         this.productRepository.adjustProduct(id, product);
-    }
-
-    @Override
-    public Product productDetail(int id) {
-        return this.productRepository.productDetail(id);
     }
 
     @Override

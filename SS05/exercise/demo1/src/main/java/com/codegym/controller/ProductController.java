@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -30,8 +31,10 @@ public class ProductController {
     }
 
     @PostMapping("add")
-    public String add(@ModelAttribute Product product) {
+    public String add(@ModelAttribute Product product,
+                      RedirectAttributes redirectAttributes) {
         this.productService.addProduct(product);
+        redirectAttributes.addFlashAttribute("add","Product added to list");
         return "redirect:/";
     }
 
@@ -43,8 +46,13 @@ public class ProductController {
 
     //delete
     @PostMapping("/delete")
-    public String delete(@RequestParam int id) {
-        this.productService.removeProduct(id);
+    public String delete(@RequestParam int id, RedirectAttributes redirectAttributes) {
+        if(this.productService.removeProduct(id)) {
+            redirectAttributes.addFlashAttribute("remove","Remove product success!");
+            this.productService.removeProduct(id);
+        } else {
+            redirectAttributes.addFlashAttribute("remove","Cant find product with these information");
+        }
         return "redirect:/";
     }
 
@@ -64,10 +72,16 @@ public class ProductController {
 
     //detail
     @PostMapping("/detail")
-    public String detail(@RequestParam int id, Model model) {
+    public String detail(@RequestParam int id, Model model,
+                         RedirectAttributes redirectAttributes) {
         Product product = this.productService.findById(id);
-        model.addAttribute("product",product);
-        return "detail";
+        if (product != null) {
+            model.addAttribute("product",product);
+            return "detail";
+        } else {
+            redirectAttributes.addFlashAttribute("notFound","Cant find product");
+            return "index";
+        }
     }
     //find by name
     @PostMapping ("/search")

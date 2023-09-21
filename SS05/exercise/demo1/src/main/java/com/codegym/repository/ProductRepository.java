@@ -61,10 +61,6 @@ public class ProductRepository implements IProductRepository {
         entityManager.merge(productEntity);
     }
 
-    @Override
-    public Product productDetail(int id) {
-        return findById(id);
-    }
 
     @Override
     public Product findById(int id) {
