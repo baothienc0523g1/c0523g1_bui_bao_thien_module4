@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="/layout :: head">
+    <title>ListCustomer</title>
 </head>
 <body>
-$END$
+<h3>Customers</h3>
+<p>
+    <a th:href="@{/create}">
+        Add new customer
+    </a>
+</p>
+
+<div class="notify">
+    <div th:if="${success}">
+        <span th:text="${success}"></span>
+    </div>
+</div>
+<div th:if="${customers.size() == 0}">
+    <span><h3>We don't have customer yet</span>
+</div>
+<table th:if="${customers.size() > 0}" id="customers">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${customers}">
+        <td th:text="${row.getName()}"></td>
+        <td th:text="${row.getEmail()}"></td>
+        <td th:text="${row.getAddress()}"></td>
+        <td><a th:href="@{/edit/__${row.getId()}__}">edit</a></td>
+        <td><a th:href="@{/delete/__${row.getId()}__}">delete</a></td>
+        <td><a th:href="@{/view/__${row.getId()}__}">view</a></td>
+    </tr>
+    </tbody>
+</table>
+<footer th:replace="/layout :: footer"></footer>
 </body>
 </html>

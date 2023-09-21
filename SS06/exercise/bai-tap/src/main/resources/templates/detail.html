@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>CodeGym Blogs</title>
 </head>
+<style th:replace="layout::style"></style>
 <body>
-$END$
+<header th:replace="layout::header"></header>
+<div class="container">
+    <h2 align="center" class="mt-2 mb-2">Welcome to CodeGym Blogs</h2>
+</div>
+<div class="container">
+    <span class="mb-2">
+        <form th:action="@{/editForm}" method="post">
+        <input type="hidden" th:value="${blog.getId()}" name="id">
+        <button type="submit" class="btn btn-outline-primary">Edit</button>
+    </form>
+    </span>
+    <span class="mb-2">
+        <button class="btn btn-outline-primary"><a th:href="@{/back}">Back to list</a></button>
+    </span>
+    <h4 align="center" class="mt-2 mb-2"><span th:text="${blog.getName()}"></span></h4>
+    <br>
+    <hr>
+    <h5 class="mt-2 mb-2">Author: <span th:text="${blog.getAuthor()}"></span></h5>
+    <br>
+    <hr>
+    <div class="container-xl" th:text="${blog.content}">
+    </div>
+</div>
+<footer th:replace="layout::footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 </html>
