@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<style th:replace="layout::style"></style>
+<body>
+<header th:replace="layout::header"></header>
+<h2>Welcome to Codegym Blog</h2>
+<div class="container">
+    <div class="row">
+        <!--        Category-->
+        <div class="col-2">
+            <div class="table" th:each="category : ${categories}">
+                <tr class="mt-1 mb-1"><h5><a th:href="@{/blogWithCategory/__${category.getName()}__}"
+                                             th:text="${category.getName()}"></a></h5></tr>
+            </div>
+            <div>
+                <button class="btn btn-outline-primary mb-2"><a th:href="@{addCategory}">Add new
+                    category</a></button>
+                <button class="btn btn-outline-primary mb-2"><a th:href="@{showCategory}">Category
+                    management</a></button>
+            </div>
+        </div>
+        <!--        List-->
+        <div class="col-10">
+            <h3 th:if="${blogs.isEmpty()}">
+                There is no blog yet, wanna add? <a th:href="@{/add}">click here</a>
+            </h3>
+            <!--        Search box-->
+            <form action="/" method="get">
+                <input type="text" name="search" placeholder="Search blogs with title" style="width: 40%;">
+                <button class="btn btn-outline-primary" type="submit">Submit</button>
+            </form>
+            <button class="btn btn-outline-primary"><a th:href="@{/add}">Add new blog here</a></button>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Time</th>
+                    <th>Category</th>
+                    <th colspan="2">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="blog, loop : ${blogs}">
+                    <td th:text="${loop.count}"></td>
+                    <td><a th:href="@{/readBlog/__${blog.getId()}__}"><span th:text="${blog.getName()}"></span></a></td>
+                    <td th:text="${blog.getAuthor()}"></td>
+                    <td th:text="${blog.getDayCreate()}"></td>
+                    <td th:text="${blog.getCategory().getName()}"></td>
+                    <td>
+                        <button class="btn btn-outline-warning"><a
+                                th:href="@{/deleteBlog/__${blog.getId()}__}">Delete</a></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-info"><a th:href="@{/editBlog/__${blog.getId()}__}">Edit</a>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <a th:if="${blogs.hasPrevious()}" th:href="@{/(page=${blogs.number - 1}, search = ${search})}">Previous</a>
+            <span th:text="${blogs.number+1}"></span> on <span th:text="${blogs.totalPages}"></span>
+            <a th:if="${blogs.hasNext()}" th:href="@{/(page=${blogs.number + 1}, search = ${search})}">Next</a>
+        </div>
+        <!--        MESSAGE-->
+        <h5 th:text="${message}"></h5>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>

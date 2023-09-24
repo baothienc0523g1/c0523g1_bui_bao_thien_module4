@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<style th:replace="layout::style"></style>
+<body>
+<header th:replace="layout::header"></header>
+<h2>Blog with category: <span th:text="${categoryName}"></span></h2>
+
+<div class="container">
+    <div class="row">
+        <!--        If category null-->
+        <div class="col-12">
+            <h3 th:if="${blogsWithCategory.isEmpty()}">
+                There is no blog with category: <span th:text="${categoryName}"></span> yet! Wanna add one? <a
+                    th:href="@{/add}">click here</a>
+            </h3>
+            <!--            Back button-->
+            <button type="button" class="btn btn-outline-light"><a th:href="@{/back}">Back to list</a></button>
+            <!--            Table -->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Time</th>
+                    <th colspan="2">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="blog, loop : ${blogsWithCategory}">
+                    <td th:text="${loop.count}"></td>
+                    <td><a th:href="@{/readBlog/__${blog.getId()}__}"><span th:text="${blog.getName()}"></span></a>
+                    </td>
+                    <td th:text="${blog.getAuthor()}"></td>
+                    <td th:text="${blog.getDayCreate()}"></td>
+                    <td>
+                        <button class="btn btn-outline-warning"><a
+                                th:href="@{/deleteBlog/__${blog.getId()}__}">Delete</a></button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-info"><a th:href="@{/editBlog/__${blog.getId()}__}">Edit</a>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>

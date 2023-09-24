@@ -1,2 +1,6 @@
-package com.codegym.service;public interface IProvinceService {
+package com.codegym.service;
+
+import com.codegym.model.Province;
+
+public interface IProvinceService extends IGenerateService<Province> {
 }
