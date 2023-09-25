@@ -23,7 +23,7 @@ public class SongDto implements Validator {
     public void validate(Object target, Errors errors) {
         SongDto songDto = (SongDto) target;
 
-        String letter = "[A-za-z]$";
+        String letter = "[A-Za-z ]+$";
         String genreRegex = "[A-Za-z]+(,? ?[A-Za-z]+)*";
 
         String name = songDto.getName();
