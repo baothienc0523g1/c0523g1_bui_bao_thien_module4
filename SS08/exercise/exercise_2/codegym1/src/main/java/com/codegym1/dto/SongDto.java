@@ -23,7 +23,7 @@ public class SongDto implements Validator {
     public void validate(Object target, Errors errors) {
         SongDto songDto = (SongDto) target;
 
-        String letter = "\\w$";
+        String letter = "[A-za-z]$";
         String genreRegex = "[A-Za-z]+(,? ?[A-Za-z]+)*";
 
         String name = songDto.getName();
@@ -45,11 +45,11 @@ public class SongDto implements Validator {
                     "less than 300 letters");
         }
         if (genre.length() > 1000 || genre.length() < 1) {
-            errors.rejectValue("genre", null, "Music genre must be greater than 1 letter and " +
+            errors.rejectValue("musicGenre", null, "Music genre must be greater than 1 letter and " +
                     "less than 1000 letters");
         }
         if (!genre.matches(genreRegex)) {
-            errors.rejectValue("genre", null, "Wrong syntax of music genre. Only letters and ',' " +
+            errors.rejectValue("musicGenre", null, "Wrong syntax of music genre. Only letters and ',' " +
                     "is accepted!");
         }
 

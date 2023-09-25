@@ -9,7 +9,7 @@
 </head>
 <body>
 <header th:replace="layout::header"></header>
-<h2>USER MANAGEMENT</h2>
+<h2>SONG MANAGEMENT</h2>
 <div class="container">
     <h2> <span th:if="${songs.isEmpty()}">No song added yet. <a th:href="@{/add}">Add here</a></span></h2>
     <div th:if="${!songs.isEmpty()}">
