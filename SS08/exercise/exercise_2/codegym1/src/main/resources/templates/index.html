@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <style th:replace="layout::style"></style>
+</head>
+<body>
+<header th:replace="layout::header"></header>
+<h2>USER MANAGEMENT</h2>
+<div class="container">
+    <h2> <span th:if="${songs.isEmpty()}">No song added yet. <a th:href="@{/add}">Add here</a></span></h2>
+    <div th:if="${!songs.isEmpty()}">
+        <button class="btn btn-outline-primary"><a th:href="@{/add}">Add new song to collection</a></button>
+        <span th:text="${message}"></span>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Song name</th>
+                <th>Artist</th>
+                <th>Music genre</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="song, loop : ${songs}">
+                <td th:text="${loop.count}"></td>
+                <td th:text="${song.getName()}"></td>
+                <td th:text="${song.getArtist()}"></td>
+                <td th:text="${song.getMusicGenre()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>
