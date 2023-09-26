@@ -4,17 +4,27 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 
 
-@NotNull
 public class UserDto implements Validator {
+    @NotBlank(message = "Please fill this field")
+    @NotNull(message = "Please fill this field")
     private String firstName;
+    @NotBlank(message = "Please fill this field")
+    @NotNull(message = "Please fill this field")
     private String lastName;
+    @NotBlank(message = "Please fill this field")
+    @NotNull(message = "Please fill this field")
     private Integer age;
+    @NotBlank(message = "Please fill this field")
+    @NotNull(message = "Please fill this field")
     private String phoneNumber;
     @Email(message = "Wrong email address!")
+    @NotBlank(message = "Please fill this field")
+    @NotNull(message = "Please fill this field")
     private String email;
 
     @Override
@@ -46,6 +56,8 @@ public class UserDto implements Validator {
         // Age validation
         if (age < 18) {
             errors.rejectValue("age", null, "You must be older than 18 to register");
+        } else if (String.valueOf(age) == "") {
+            errors.rejectValue("age", null, "Please fill this field");
         }
 
         // Phone validation

@@ -1,6 +1,8 @@
 package com.codegym.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
@@ -8,10 +10,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(columnDefinition = "varchar(255) not null")
     private String firstName;
+    @Column(columnDefinition = "varchar(255) not null")
     private String lastName;
+    @Column(columnDefinition = "int not null")
     private Integer age;
+    @Column(columnDefinition = "varchar(30) not null")
     private String phoneNumber;
+    @Column(columnDefinition = "varchar(255) not null")
     private String email;
 
     public User() {

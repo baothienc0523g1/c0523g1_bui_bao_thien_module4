@@ -4,14 +4,15 @@ package com.codegym1.dto;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 public class SongDto implements Validator {
-    @NotEmpty(message = "Please fill this field")
+    @NotBlank(message = "Please fill this field")
     private String name;
-    @NotEmpty(message = "Please fill this field")
+    @NotBlank(message = "Please fill this field")
     private String artist;
-    @NotEmpty(message = "Please fill this field")
+    @NotBlank(message = "Please fill this field")
     private String musicGenre;
 
     @Override
