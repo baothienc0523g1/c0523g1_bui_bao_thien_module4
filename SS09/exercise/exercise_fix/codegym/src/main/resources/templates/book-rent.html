@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Mượn sách</title>
+</head>
+<style th:replace="layout::style"></style>
+<body>
+<header th:replace="layout::header"></header>
+<h2>Mượn sách</h2>
+<div class="container">
+    <table>
+        <tr>
+            <th>
+                Danh mục sách muốn thuê
+            </th>
+        </tr>
+        <tr th:each="type : ${bookTypes}">
+            <td>
+                <a th:href="@{/rentShow/__${type.getId()}__}">
+                    <span th:text="${type.getTypeName()}"></span></a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button class="btn btn-outline-primary"><a th:href="@{/back}">Quay về trang chủ</a></button>
+            </td>
+        </tr>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>
