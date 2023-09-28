@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Thế giới manh động</title>
+</head>
+<style th:replace="layout::style"></style>
+<body>
+<header th:replace="layout::header"></header>
+<h2>Thế giới manh động</h2>
+
+<div class="container">
+    </button>
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>
+                <p>Số lượng sản phẩm: <span th:text="${cartDto.countProductQuantity()}"></span></p>
+                <p>Thanh toán: <span th:text="${#numbers.formatDecimal(cartDto.getPrice(), 2, 0, 'COMMA')}"></span>đ</p>
+            </h3>
+        </div>
+        <div class="col-sm-8">
+            <small th:text="${message}" style="color: red"></small>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tên</th>
+                    <th>Giá</th>
+                    <th colspan="3" style="text-align: center">Số lượng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product, loop : ${cartDto.products}">
+                    <td th:text="${loop.count}"></td>
+                    <td th:text="${product.key.getName()}"></td>
+                    <td><span th:text="${#numbers.formatDecimal(product.key.getPrice(), 2, 0, 'COMMA')}"></span> d</td>
+                    <td th:text="${product.value}"></td>
+                    <td>
+                        <button class="btn btn-outline-primary"><a th:href="@{/cart/minus/__${product.getKey().getId()}__}">-</a>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-primary"><a
+                                th:href="@{/cart/additional/__${product.getKey().getId()}__}">+</a></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button class="btn btn-outline-primary"><a th:href="@{/back}">Quay lại</a></button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>

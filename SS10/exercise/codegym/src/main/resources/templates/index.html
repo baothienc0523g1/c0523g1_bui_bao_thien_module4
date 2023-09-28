@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" >
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Thế giới manh động</title>
+</head>
+<style th:replace="layout::style"></style>
+<body>
+<header th:replace="layout::header"></header>
+<h2>Thế giới manh động</h2>
+
+<div class="container">
+    <button class="btn btn-outline-primary mb-2 mt-2"><a th:href="@{/addProduct}">Thêm sản phẩm vào danh sách</a>
+    </button>
+    <div class="row">
+        <h3 th:if="${products.isEmpty()}">Chưa có sản phẩm nào, thêm mới <a th:href="@{/addProduct}">tại đây</a></h3>
+        <div class="col-sm-4">
+            <h3>
+                <span><a th:href="@{/cart}">Giỏ hàng </a> <span th:text="${itemQuantity}"></span></span>
+            </h3>
+<!--            line 27 -> 44 chua chay duoc-->
+            <p style="color: green" th:text="${message}"></p>
+            <div class="row">
+                <h4>Sản phẩm xem gần đây nhất</h4>
+                <div class="col-sm-8">
+                    <div th:if="${lastProduct}" class="card mt-2 mb-2">
+                        <img th:src="${lastProduct.getImgUrl()}" class="card-img-top" alt="speaker">
+                        <div class="card-body">
+                            <p class="card-title" style="width: auto; height: 50px"><span
+                                    th:text="${lastProduct.getName()}"></span></p>
+                            <h5 class="card-title" style="color: orangered"><span
+                                    th:text="${lastProduct.getPrice()}"></span> d</h5>
+                            <span><a class="btn btn-primary"
+                                     th:href="@{/addToCart/__${lastProduct.getId()}__}">Thêm vào giỏ</a>
+                           <a class="btn btn-success" href="#">Chi tiết</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-xl-4 md-5 sm-10 mb-6 mb-sm-8" th:if="${!products.isEmpty()}" th:each="product : ${products}">
+                    <div class="card mt-2 mb-2">
+                        <img th:src="${product.getImgUrl()}" class="card-img-top" alt="speaker">
+                        <div class="card-body">
+                            <p class="card-title" style="width: auto; height: 50px"><span
+                                    th:text="${product.getName()}"></span></p>
+                            <h5 class="card-title" style="color: orangered"><span
+                                    th:text="${#numbers.formatDecimal(product.getPrice(), 1, 0, 'COMMA')}"></span>đ</h5>
+                            <span><a class="btn btn-primary"
+                                     th:href="@{/addToCart/__${product.getId()}__}">Thêm vào giỏ</a>
+                           <a class="btn btn-primary-success" th:href="@{/detail/__${product.getId()}__}">Chi tiết</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>
