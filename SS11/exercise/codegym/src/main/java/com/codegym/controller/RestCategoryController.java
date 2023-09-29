@@ -27,7 +27,7 @@ public class RestCategoryController {
         Pageable pageable = PageRequest.of(page, 2, null);
         Page<Category> categories = this.categoryService.findAllCategory(pageable, categoryName);
         if (categories.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }

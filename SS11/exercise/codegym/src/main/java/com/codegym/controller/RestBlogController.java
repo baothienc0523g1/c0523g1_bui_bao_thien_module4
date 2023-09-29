@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -32,7 +31,7 @@ public class RestBlogController {
         Pageable pageable = PageRequest.of(page, 2, null);
         Page<Blog> blogs = this.blogService.findAllBLog(pageable, searchName);
         if (blogs.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
@@ -45,7 +44,7 @@ public class RestBlogController {
         Category existedCategory = this.categoryService.findCategoryById(categoryId);
         Page<Blog> blogsWithCategory = this.blogService.findAllByCategory(pageable, existedCategory);
         if (blogsWithCategory.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(blogsWithCategory, HttpStatus.OK);
     }
