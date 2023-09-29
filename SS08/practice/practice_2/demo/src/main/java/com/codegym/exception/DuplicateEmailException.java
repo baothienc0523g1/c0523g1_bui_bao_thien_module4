@@ -1,2 +1,4 @@
-package com.codegym.exception;public class DuplicatieEmailException {
+package com.codegym.exception;
+
+public class DuplicateEmailException extends Exception{
 }
