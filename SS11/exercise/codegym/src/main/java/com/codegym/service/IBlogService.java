@@ -5,13 +5,14 @@ import com.codegym.model.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 
 public interface IBlogService {
-    Page<Blog> findAllBLog(Pageable pageable, String summary);
-    Page<Blog> findAllByCategory(Pageable pageable, Category category);
-    Optional<Blog> blogDetail(Long blogId);
+    List<Blog> findAllBLog();
+    List<Blog> findAllByCategory(Category category);
+    Blog blogDetail(Long blogId);
     void addBlog(Blog blog);
     Blog findById(Long id);
 }

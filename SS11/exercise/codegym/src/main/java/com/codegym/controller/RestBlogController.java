@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/blogs")
@@ -26,10 +27,9 @@ public class RestBlogController {
 
     //Get blog list
     @GetMapping
-    public ResponseEntity<Page<Blog>> getBlogList(@RequestParam(defaultValue = "0", required = false) Integer page,
-                                                  @RequestParam(defaultValue = "", required = false) String searchName) {
-        Pageable pageable = PageRequest.of(page, 2, null);
-        Page<Blog> blogs = this.blogService.findAllBLog(pageable, searchName);
+    public ResponseEntity<List<Blog>> getBlogList() {
+
+        List<Blog> blogs = this.blogService.findAllBLog();
         if (blogs.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -38,11 +38,9 @@ public class RestBlogController {
 
     //Get blog list with category
     @GetMapping("/category/{categoryId}")
-    public ResponseEntity<Page<Blog>> getBlogListWithCategory(@RequestParam(defaultValue = "0", required = false) Integer page,
-                                                              @PathVariable Long categoryId) {
-        Pageable pageable = PageRequest.of(page, 2, null);
+    public ResponseEntity<List<Blog>> getBlogListWithCategory(@PathVariable(name = "categoryId") Long categoryId) {
         Category existedCategory = this.categoryService.findCategoryById(categoryId);
-        Page<Blog> blogsWithCategory = this.blogService.findAllByCategory(pageable, existedCategory);
+        List<Blog> blogsWithCategory = this.blogService.findAllByCategory(existedCategory);
         if (blogsWithCategory.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

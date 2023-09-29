@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,19 +19,19 @@ public class BlogService implements IBlogService {
     private IBlogRepository blogRepository;
 
     @Override
-    public Page<Blog> findAllBLog(Pageable pageable, String summary) {
-        return this.blogRepository.findAllBySummary(pageable, summary);
+    public List<Blog> findAllBLog() {
+        return this.blogRepository.findAll();
     }
 
     @Override
-    public Page<Blog> findAllByCategory(Pageable pageable, Category category) {
-        return this.blogRepository.findAllByCategory(pageable, category);
+    public List<Blog> findAllByCategory(Category category) {
+        return this.blogRepository.findAllByCategory(category);
     }
 
-
     @Override
-    public Optional<Blog> blogDetail(Long blogId) {
-        return this.blogRepository.findById(blogId);
+    public Blog blogDetail(Long blogId) {
+        return this.blogRepository.findById(blogId)
+                .orElseThrow(() -> new IllegalArgumentException("Cant found this blog"));
     }
 
     @Transactional
