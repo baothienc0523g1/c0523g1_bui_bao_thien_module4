@@ -61,31 +61,39 @@ public class ProductController {
     public ModelAndView detail(@PathVariable long id,
                                HttpServletResponse response,
                                Model model) {
-        Cookie cookie = new Cookie("productId", id+"");
-        cookie.setMaxAge(60*60*24);
+        Cookie cookie = new Cookie("productId", id + "");
+        cookie.setMaxAge(60 * 60 * 24);
         cookie.setPath("/");
         response.addCookie(cookie);
-        ModelAndView modelAndView = new ModelAndView("detail","lastProduct",this.productService.findById(id));
+        ModelAndView modelAndView = new ModelAndView("detail", "lastProduct", this.productService.findById(id));
         return modelAndView;
     }
+
     //add new cart
     @GetMapping("/addToCart/{id}")
     public String addToCart(@PathVariable Long id,
                             @SessionAttribute(value = "cart", required = false) CartDto cartDto,
                             Model model,
                             RedirectAttributes redirectAttributes) {
-        Product product = this.productService.findById(id);
-        if (product != null) {
-            ProductDto productDto = new ProductDto();
-            BeanUtils.copyProperties(product, productDto);
-            cartDto.addProduct(productDto);
-            int itemQuantity = cartDto.countProductQuantity();
-            model.addAttribute("itemQuantity",itemQuantity);
-            redirectAttributes.addFlashAttribute("message","Thêm thành công sản phẩm "
-                            + productDto.getName() + " vào giỏ hàng");
+        try {
+            Product product = this.productService.findById(id);
+            if (product != null) {
+                ProductDto productDto = new ProductDto();
+                BeanUtils.copyProperties(product, productDto);
+                cartDto.addProduct(productDto);
+                int itemQuantity = cartDto.countProductQuantity();
+                model.addAttribute("itemQuantity", itemQuantity);
+                redirectAttributes.addFlashAttribute("message", "Thêm thành công sản phẩm "
+                        + productDto.getName() + " vào giỏ hàng");
+            } else {
+                redirectAttributes.addFlashAttribute("message", "Xin lỗi vì sự bất tiện này. " +
+                        "Sản phẩm bạn vừa chọn không còn tồn tại trên hệ thống, vui chọn chọn sản phẩm khác!!");
+            }
+        } catch (NullPointerException npe) {
+            System.out.println(npe.getMessage());
+            redirectAttributes.addFlashAttribute("message","Lỗi mạng");
+        } finally {
+            return "redirect:/";
         }
-        return "redirect:/";
     }
-
-
 }

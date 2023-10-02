@@ -46,11 +46,17 @@ public class CartController {
 
     @GetMapping("/additional/{id}")
     public String additional(@SessionAttribute(value = "cart", required = false) CartDto cartDto,
-                             @PathVariable Long id) {
+                             @PathVariable Long id,
+                             RedirectAttributes redirectAttributes) {
         Product product = this.productService.findById(id);
-        ProductDto productDto = new ProductDto();
-        BeanUtils.copyProperties(product, productDto);
-        cartDto.addProduct(productDto);
+        if (product == null) {
+            redirectAttributes.addFlashAttribute("message", "Sản phẩm vừa chọn không còn tồn tại" +
+                    " trên hệ thống");
+        } else {
+            ProductDto productDto = new ProductDto();
+            BeanUtils.copyProperties(product, productDto);
+            cartDto.addProduct(productDto);
+        }
         return "redirect:/cart";
     }
 
