@@ -1,0 +1,21 @@
+* {
+    font-family: 'Work Sans', sans-serif;
+}
+header {
+    height: 76px;
+    background-color: #14375F;
+    display: grid;
+}
+.title {
+    text-align: center;
+    color: #fff;
+    place-self: center;
+}
+h4 {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+#add-blog {
+    text-align: center;
+}
