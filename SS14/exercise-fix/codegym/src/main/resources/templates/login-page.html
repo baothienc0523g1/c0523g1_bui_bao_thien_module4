@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>LOGIN</title>
+</head>
+<body>
+<!--Include _menu.html ??-->
+<h1>Login</h1>
+
+<!--If login failure start-->
+<div th:if="${#request.getParameter('error') == 'true'}"
+     style="color: red;margin: 10px 0;">
+    Login Failed
+    </br>
+    Reason: 
+    <span id="reason" 
+    th:if="${#session != null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
+    th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}"> </span>
+    Static summary
+</div>
+<!--If login failure end-->
+
+<!--Login start-->
+<!--j_spring_security_check -> default link of spring security -->
+<h3>Enter username and password</h3>
+<form th:action="@{/j_spring_security_check}" method="post">
+    <table>
+        <tr>
+            <th>Username:</th>
+            <td><input type="text" name="username" value='' placeholder="Username"></td>
+        </tr>
+        <tr>
+            <th>Password:</th>
+            <td><input type="text" name="password" value='' placeholder="Password"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" name="submit" value="submit"></td>
+        </tr>
+    </table>
+</form>
+<!--Login end-->
+
+</br>
+Username/password:
+<ul>
+    <li>dbuser1/123</li>
+    <li>dbadmin/123</li>
+</ul>
+</body>
+</html>
