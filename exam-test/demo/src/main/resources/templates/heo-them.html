@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Thêm heo</title>
+    <style th:replace="layout::style"></style>
+
+</head>
+<body>
+<header th:replace="layout::header">
+</header>
+
+<div class="container">
+    <table class="table">
+        <form th:action="@{/heo/add}" method="post" th:object="${heo}">
+            <tr>
+                <th><label for="maSoHeo">Mã số heo</label></th>
+                <td><input th:field="*{maSoHeo}" id="maSoHeo" type="text"></td>
+            </tr>
+            <tr>
+                <th><label for="ngayNhapChuong">Ngày nhập chuồng</label></th>
+                <td><input th:field="*{ngayNhapChuong}" type="date" id="ngayNhapChuong"></td>
+            </tr>
+            <tr>
+                <th><label for="trongLuongNhapChuong">Trọng lượng nhập chuồng</label></th>
+                <td>
+                    <input th:field="*{trongLuongNhapChuong}" type="number" id="trongLuongNhapChuong">
+                </td>
+            </tr>
+            <tr>
+                <th><label for="ngayXuatChuong">Ngày xuất chuồng</label></th>
+                <td><input th:field="*{ngayXuatChuong}" type="date" id="ngayXuatChuong"></td>
+            </tr>
+            <tr>
+                <th><label for="trongLuongXuatChuong">Trọng lượng xuất chuồng</label></th>
+                <td><input th:field="*{trongLuongXuatChuong}" type="number" id="trongLuongXuatChuong"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <select th:field="*{xuatXu}" name="maXuatXu" id="maXuatXu">
+                        <option th:each="xx : ${xuatXus}" th:value="${xx.getId()}"
+                                th:text="${xx.getNoiXuatXu()}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Ok</button>
+                </td>
+            </tr>
+        </form>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>

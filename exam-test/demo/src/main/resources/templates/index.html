@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+</head>
+<style th:replace="layout::style"></style>
+<body>
+<header th:replace="layout::header"></header>
+<div class="container">
+    <h3 th:if="${heos.isEmpty()}">Không có thông tin về heo</h3>
+    <h4><a href="/heo/add">Thêm heo mới</a></h4>
+    <h4><a href="/xuat-xu/add">Thêm giá trị xuất xứ mới</a></h4>
+    <h4><a href="/xuat-xu/">List nơi xuất xứ</a></h4>
+    <h4 th:text="${message}"></h4>
+    <form action="/heo" method="get">
+        <input type="text" th:value="${timKiem}">
+        <button type="submit">Tim kiem</button>
+    </form>
+    <table class="table" th:if="${heos.isEmpty()}">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Mã số</th>
+            <th>Ngày nhập chuồng</th>
+            <th>Trọng lượng nhập chuồng ( .kg)</th>
+            <th>Ngày xuất chuồng</th>
+            <th>Trọng lượng xuất chuồng ( .kg)</th>
+            <th>Xuất xứ</th>
+            <th colspan="3">Quản lý</th>
+        </tr>
+        </thead>
+        <tbody>
+       <tr th:each="heo, loop : ${heos}">
+           <td th:text="${loop.count}"></td>
+           <td th:text="${heo.getMaSoHeo()}"></td>
+           <td th:text="${heo.getNgayNhapChuong()}"></td>
+           <td th:text="${heo.getNgayNhapChuong()}"></td>
+           <td th:text="${heo.getNgayXuatChuong()}"></td>
+           <td th:text="${heo.getTrongLuongXuatChuong()}"></td>
+           <td th:text="${heo.getXuatXu().getNoiXuatXu()}"></td>
+           <td>Bán</td>
+           <td>Chi tiết</td>
+           <td>Xóa</td>
+       </tr>
+        </tbody>
+    </table>
+    <a th:if="${heos.hasPrevious()}" th:href="@{/heo(soTrang = ${soTrang - 1}, timKiem = ${timKiem})}"></a>
+    <span th:text="${heos.number + 1}"></span> on <span th:text="${heos.totalPages + 1}"></span>
+    <a th:if="${heos.hasNext()}" th:href="@{/heo(soTrang = ${soTrang + 1}, timKiem = ${timKiem})}"></a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+</html>
