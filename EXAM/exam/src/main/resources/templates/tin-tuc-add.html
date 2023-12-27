@@ -100,36 +100,42 @@
 
 <!--body start-->
 <div class="container">
-    <h5 class="mt-4">Thêm mới</h5>
+    <h5 class="mt-4">Thêm mới tin tức</h5>
 
     <table class="table">
-        <form action="">
+        <form th:action="@{/add}" method="post" th:object="${tinTuc}">
             <tr>
-                <td>test</td>
-                <td><input class="form form-control" type="text"></td>
+                <td>Tiêu đề</td>
+                <td><input class="form form-control" th:field="*{tieuDe}" type="text" required></td>
             </tr>
             <tr>
-                <td>test</td>
-                <td><input class="form form-control" type="text"></td>
-            </tr>
-            <tr>
-                <td>test</td>
-                <td><input class="form form-control" type="date"></td>
-            </tr>
-            <tr>
-                <td>test</td>
+                <td>Danh mục</td>
                 <td>
-                    <select class="form-select" aria-label="Default select example">
-                        <option value="1">Test 1</option>
-                        <option value="2">Test 2</option>
-                        <option value="3">Three 3</option>
+                    <select class="form-select" aria-label="Default select example" th:field="*{danhMuc}" required>
+                        <option th:each="danhMuc : ${danhMucs}" th:text="${danhMuc.tenDanhMuc}"
+                                th:value="${danhMuc.id}">Test 1
+                        </option>
                     </select>
                 </td>
             </tr>
             <tr>
+                <td>Ngày đăng tin</td>
+                <td><input class="form form-control" th:field="*{ngayDangTin}" type="date" required>
+                </td>
+            </tr>
+            <tr>
+                <td>Tên phóng viên</td>
+                <td><input class="form form-control" th:field="*{phongVien}" type="text" required></td>
+            </tr>
+            <tr>
+                <td>Nội dung</td>
+                <td>
+                    <textarea th:field="*{noiDung}" required/></td>
+            </tr>
+            <tr>
                 <td colspan="2">
-                    <button class="btn btn-success" type="submit" id="back-btn">Back</button>
-                    <button class="btn btn-primary" type="button" id="ok-btn">OK</button>
+                    <button class="btn btn-success" type="button" id="back-btn"><a href="/back">Back</a></button>
+                    <button class="btn btn-primary" type="submit" id="ok-btn">OK</button>
                 </td>
             </tr>
         </form>
